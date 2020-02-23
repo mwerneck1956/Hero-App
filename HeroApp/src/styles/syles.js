@@ -18,7 +18,22 @@ export const MainImage = styled.img`
 
 `
 export const Title = styled.h1`
-    font-size : 3rem ;
+    text-align : center;
+    margin : 5%;
+    font-size : 4rem ;
     font-family : "avengersFont";
-    color : #484848
+    color : #0B0930;
+`
+export const ButtonTitle = styled.h3 `
+    font-family : 'avengersFont';
+    color : #5C49C6;
+
+`
+export const Menu = styled.div`
+    display : flex;
+	flex-flow: column nowrap;
+    padding-left : 5%;
+    padding-right : 5%;
+    background-color : whitesmoke;
+    height : 80%;
 `

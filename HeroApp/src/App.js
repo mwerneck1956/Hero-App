@@ -6,7 +6,7 @@ import ShowWindowDimension from './components/ShowWindowDimension'
 function App() {
   return (
     <div className="App">
-        <MainNavbar/> 
+         
        
         <WelcomeBody/>
     </div>
