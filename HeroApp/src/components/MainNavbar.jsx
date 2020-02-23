@@ -8,7 +8,7 @@ const MainNavbar = (props) => {
 
   return (
     <div>
-      <Navbar color="primary" light>
+      <Navbar style={{backgroundColor :"#6301FF" }} light>
         <NavbarBrand href="/" className="mr-auto">Hero App</NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
