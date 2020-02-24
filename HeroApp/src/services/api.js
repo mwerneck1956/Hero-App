@@ -2,8 +2,8 @@ import Axios from "axios";
 
 
 const api = Axios.create({
-  baseURL: "http://" +  "akabab.github.io/superhero-api/api",  
-  headers: { "X-Requested-With": "XMLHttpRequest" }
+  baseURL: "https://" +  "cdn.rawgit.com/akabab/superhero-api/0.2.0/api"
+ // headers: { "X-Requested-With": "XMLHttpRequest" }
 });
 
 export default api;

@@ -24,6 +24,13 @@ export const Title = styled.h1`
     font-family : "avengersFont";
     color : #0B0930;
 `
+export const NavTitle = styled.h2 `
+    margin-top : 15% ;
+    text-align : center;
+    font-size : 3rem ;
+    font-family : "avengersFont";
+    color : #0B0930;
+`
 export const ButtonTitle = styled.h3 `
     font-family : 'avengersFont';
     color : #5C49C6;
