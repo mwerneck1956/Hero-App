@@ -20,16 +20,19 @@ export const MainImage = styled.img`
 export const Title = styled.h1`
     text-align : center;
     margin : 5%;
+    /* era 5%*/
     font-size : 4rem ;
     font-family : "avengersFont";
-    color : #0B0930;
+    /*color : #0B0930;*/
+    color :  #F5FFF5
 `
 export const NavTitle = styled.h2 `
     margin-top : 15% ;
     text-align : center;
     font-size : 3rem ;
     font-family : "avengersFont";
-    color : #0B0930;
+   /* color : #0B0930;*/
+   color :  #FFFFFF
 `
 export const ButtonTitle = styled.h3 `
     font-family : 'avengersFont';
@@ -37,10 +40,13 @@ export const ButtonTitle = styled.h3 `
 
 `
 export const Menu = styled.div`
+    margin-top : 10%;
+    margin-left : 25%;
+    width : 50%;
     display : flex;
 	flex-flow: column nowrap;
     padding-left : 5%;
     padding-right : 5%;
-    background-color : whitesmoke;
+    background-color : none;
     height : 80%;
 `

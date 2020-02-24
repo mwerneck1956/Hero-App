@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import WelcomeBody from '../components/WelcomeBody'
+import WelcomeWindow from '../components/WelcomeWindow'
 class WelcomePage extends Component {
     constructor(props) {
         super(props)
@@ -12,7 +13,8 @@ class WelcomePage extends Component {
     render() {
         return (
             <div style={{backgroundColor : "whitesmoke" , height : '100vh' ,}}>
-                <WelcomeBody />
+            {/*<WelcomeBody /> */}
+             <WelcomeWindow/>
             </div>
                 )
             }
