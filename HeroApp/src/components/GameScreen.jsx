@@ -15,8 +15,9 @@ import { Item, SubItem } from '../styles/syles'
 
 //MAterial Ui
 import { Grid } from '@material-ui/core'
-import Snackbar from '@material-ui/core/Snackbar';
+import { Snackbar } from '@material-ui/core';
 
+import MuiAlert from '@material-ui/lab/Alert';
 //Material Ui Icons
 import CheckIcon from "@material-ui/icons/Check";
 import ErrorIcon from "@material-ui/icons/Error";
@@ -33,11 +34,11 @@ class GameScreen extends Component {
         super(props)
 
         this.state = {
-            snackBarColor :'' ,
-            snackBarMessage :'' ,
-            snackbarIcon :'' ,
-            snackBarOpen : false,
-            numCards : 0, //Contar quantos numeros de cards ja foram exibidos
+            snackBarColor: '',
+            snackBarMessage: '',
+            snackbarIcon: null,
+            snackBarOpen: false,
+            numCards: 0, //Contar quantos numeros de cards ja foram exibidos
             heroLoaded: false, //Controlar se o heroi esta carregado ou não 
             heroeList: null, //Lista contendo todos os herois recebidos da api
             VisitedHeroes: [], //Vetor com os herois ja visitados para evitir duplicatas
@@ -52,21 +53,24 @@ class GameScreen extends Component {
         }
     }
 
+    Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
 
     loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
         this.setState({
-          snackBarColor: snack.color,
-          snackBarMessage: snack.message,
-          snaclBarIcon: snack.icon,
-          snackBarOpen: true
+            snackBarColor: snack.color,
+            snackBarMessage: snack.message,
+            snackbarIcon: snack.icon,
+            snackBarOpen: true
         });
         setTimeout(
-          function() {
-            this.setState({ snackBarOpen: false });
-          }.bind(this),
-          10000
+            function () {
+                this.setState({ snackBarOpen: false });
+            }.bind(this),
+            1500
         );
-      }
+    }
 
     numAleatorio = (range) => {
         return Math.floor(Math.random() * range) //Como o vetor de heroi tem tamanho 500 , pego un numero aleatorio de 0 a 499
@@ -94,16 +98,27 @@ class GameScreen extends Component {
 
     verifyName = (e) => {
         const Snack = {
-            message : ''
+            message : '',
+            color : '',
+            icon : null
         }
+
         if (this.state.pickedHeroe.name === e.target.value) {
-            alert('parabens voce acertou')
+            Snack.message = "Parabéns , você Acertou o nome do héroi"
+            Snack.color = "success" 
+            Snack.icon = CheckIcon
+
             this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
         } else {
+            Snack.message = "Você errou o nome do héroi !!!"
+            Snack.color = "warning" 
+            Snack.icon = ErrorIcon
+
             this.setState({ errors: this.state.errors + 1 })
-            alert('Eroooooou!')
+            
         }
-        this.setState({ heroLoaded: false , pickedHeroe : null })
+        this.setState({ heroLoaded: false, pickedHeroe: null })
+        this.loadingSnackBar(Snack)
     }
     selectHeroes = () => {
         let vetHerois = [], pickedHero
@@ -113,13 +128,13 @@ class GameScreen extends Component {
             if (i === 0) {
                 pickedHero = this.state.heroeList[numSorteado]
             }
-           
+
             vetHerois.push(this.state.heroeList[numSorteado])
             numSorteado = this.numAleatorio(500)
             i++
         }
 
-   
+
         return vetHerois
     }
 
@@ -148,27 +163,27 @@ class GameScreen extends Component {
 
             }
             console.log('vetor de herois ', this.state.heroeList)
-            console.log('pickado ', this.state.pickedHeroe) 
+            console.log('pickado ', this.state.pickedHeroe)
         }
         return (
-            <div style={{ backgroundColor: 'whitesmoke'  , height : "100%"}}>
+            <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
                 <Grid
-                    
+
                     container spacing={1}
                     justify="space-around"
                 >
 
-                    <Grid item xl={4} 
-                        xs = "auto"
-                        spacing ={2}
+                    <Grid item xl={4}
+                        xs="auto"
+                        spacing={2}
 
                     >
                         <Item> Pontuacao : {this.state.points} </Item>
 
                         <SubItem>
-                            
+
                             Acertos : {this.state.sucessesses}
-                            <br/>
+                            <br />
                             Errors : {this.state.errors}
 
                         </SubItem>
@@ -176,8 +191,8 @@ class GameScreen extends Component {
 
                     </Grid>
                     <Grid item
-                        className ="mt-3 mb-2"
-                        xl ={4} xs = {8} spacing={2}>
+                        className="mt-3 mb-2"
+                        xl={4} xs={8} spacing={2}>
                         {this.state.pickedHeroe ? <Card
                             hoverable
                             style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
@@ -205,19 +220,33 @@ class GameScreen extends Component {
 
                         }
                     </Grid>
-                    <Grid 
-                        className = "mt-5"
+                    <Grid
+                        className="mt-5"
                         item xl={2}
                     >
-                            <SubItem>
-                                Tempo Restante :
+                        <SubItem>
+                            Tempo Restante :
                             </SubItem>
-                            <SubItem>
-                                Cards Restantes :
+                        <SubItem>
+                            Cards Restantes :
                             </SubItem>
                     </Grid>
                 </Grid>
 
+                <Snackbar
+                    place="bc"
+                    //color={this.state.snackBarColor}
+                    //icon={this.state.snackBarIcon}
+                    //message={this.state.snackBarMessage}
+                    open={this.state.snackBarOpen}
+                    closeNotification={() => this.setState({ snackBarOpen: false })}
+                    close
+                >
+                    <MuiAlert  elevation={6} variant="filled"  severity ={this.state.snackBarColor}>
+                        {this.state.snackBarMessage}
+                    </MuiAlert>
+                    
+                </Snackbar>
 
             </div>
         )
