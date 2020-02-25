@@ -15,8 +15,11 @@ import { Item, SubItem } from '../styles/syles'
 
 //MAterial Ui
 import { Grid } from '@material-ui/core'
+import Snackbar from '@material-ui/core/Snackbar';
 
-
+//Material Ui Icons
+import CheckIcon from "@material-ui/icons/Check";
+import ErrorIcon from "@material-ui/icons/Error";
 
 
 const { Meta } = Card;
@@ -30,11 +33,15 @@ class GameScreen extends Component {
         super(props)
 
         this.state = {
-            numCards : 0,
-            heroLoaded: false,
-            heroeList: null,
-            VisitedHeroes: [],
-            ActualHeroes: [],
+            snackBarColor :'' ,
+            snackBarMessage :'' ,
+            snackbarIcon :'' ,
+            snackBarOpen : false,
+            numCards : 0, //Contar quantos numeros de cards ja foram exibidos
+            heroLoaded: false, //Controlar se o heroi esta carregado ou não 
+            heroeList: null, //Lista contendo todos os herois recebidos da api
+            VisitedHeroes: [], //Vetor com os herois ja visitados para evitir duplicatas
+            ActualHeroes: [], //
             pickedHeroe: null,
             points: 0,
             sucessesses: 0,
@@ -44,6 +51,22 @@ class GameScreen extends Component {
 
         }
     }
+
+
+    loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
+        this.setState({
+          snackBarColor: snack.color,
+          snackBarMessage: snack.message,
+          snaclBarIcon: snack.icon,
+          snackBarOpen: true
+        });
+        setTimeout(
+          function() {
+            this.setState({ snackBarOpen: false });
+          }.bind(this),
+          10000
+        );
+      }
 
     numAleatorio = (range) => {
         return Math.floor(Math.random() * range) //Como o vetor de heroi tem tamanho 500 , pego un numero aleatorio de 0 a 499
@@ -70,7 +93,9 @@ class GameScreen extends Component {
     }
 
     verifyName = (e) => {
-
+        const Snack = {
+            message : ''
+        }
         if (this.state.pickedHeroe.name === e.target.value) {
             alert('parabens voce acertou')
             this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
