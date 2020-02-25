@@ -13,9 +13,21 @@ export const MainImage = styled.img`
       }
 
       @media(orientation : landscape){
-          src :   '../images/heroAppContainer.jpg';
+          src :   '../images/heroAp0B0930pContainer.jpg';
       }
 
+`
+
+export const Item = styled.h2`
+    margin-top : 9%;
+    font-family : "avengersFont";
+    font-size : 5vh ;
+`
+export const SubItem = styled.h4`
+    /* era 5%*/
+    font-size : 4vh;
+    font-family : "avengersFont";
+    /*color : #0B0930;*/
 `
 export const Title = styled.h1`
     text-align : center;
@@ -24,17 +36,17 @@ export const Title = styled.h1`
     font-size : 4rem ;
     font-family : "avengersFont";
     /*color : #0B0930;*/
-    color :  #F5FFF5
+    color :  #2C2A89 ;
 `
-export const NavTitle = styled.h2 `
+export const NavTitle = styled.h2`
     margin-top : 15% ;
     text-align : center;
     font-size : 3rem ;
     font-family : "avengersFont";
    /* color : #0B0930;*/
-   color :  #FFFFFF
+   color :  #ffffff;
 `
-export const ButtonTitle = styled.h3 `
+export const ButtonTitle = styled.h3`
     font-family : 'avengersFont';
     color : #5C49C6;
 

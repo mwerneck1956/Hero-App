@@ -15,7 +15,7 @@ import WelcomePage from './views/WelcomePage'
 import GameView from './views/GameView'
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor : "whitesmoke"}}>
       <Router>
       
         <Switch>

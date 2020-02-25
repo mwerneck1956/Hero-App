@@ -29,10 +29,10 @@ const styleButton = {
     padding: '3%',
     fontFamily: 'avengersFont',
     marginTop: "3%",
-    fontSize: '4vh',
+    fontSize: '3vh',
     color: 'white',
-    backgroundColor : 'whitesmoke',
     textAling: 'center',
+    backgroundColor : '#807F83',
     borderRadius: '25px'
 }
 export default class WelcomeWindow extends Component {
@@ -69,7 +69,7 @@ export default class WelcomeWindow extends Component {
                                 App
                         </Title>
 
-                            <Button style={styleButton}  color="secondary" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
+                            <Button style={styleButton} outline  color="secondary" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
                             <br />
 
                             <Button style={styleButton} color="secondary"><Link style={linkColor} to = "/aboutUs">Sobre</Link></Button>
