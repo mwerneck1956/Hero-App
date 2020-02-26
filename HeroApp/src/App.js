@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import WelcomeBody from '../src/components/WelcomeBody'
 import MainNavbar from './components/MainNavbar'
 import ShowWindowDimension from './components/ShowWindowDimension'
+import DialogStatistics from './components/DialogStatistics'
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +17,7 @@ import GameView from './views/GameView'
 function App() {
   return (
     <div className="App" style={{backgroundColor : "whitesmoke"}}>
-      <Router>
+      {/*  <Router>
       
         <Switch>
           <Route exact path="/home">
@@ -28,7 +29,8 @@ function App() {
           <Redirect from='/' to='/home' /> 
         </Switch>
       
-      </Router>
+      </Router> */}
+      <DialogStatistics open= {true} won = {false} />
     </div>
   );
 }

@@ -69,3 +69,10 @@ export const Menu = styled.div`
     background-color : none;
     height : 80%;
 `
+export const StatisticTitle  = styled.h2 `
+    font-family : "avengersFont" ;
+    font-size  : ${props => `${props.fontSize}rem`} ;
+    color  : rgb(24, 0, 64);
+     
+
+`
