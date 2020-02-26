@@ -3,6 +3,9 @@ import api from '../services/api'
 import axios from 'axios'
 
 
+//Components
+import DialogStatistics from './DialogStatistics'
+
 //Reacstrap
 import { Button, Spinner } from 'reactstrap'
 
@@ -26,7 +29,7 @@ import ErrorIcon from "@material-ui/icons/Error";
 const { Meta } = Card;
 
 let buttons;
-const numCards = 10;
+const numCards = 4;
 
 const Snack = {
     message: '',
@@ -39,6 +42,10 @@ class GameScreen extends Component {
         super(props)
 
         this.state = {
+            win : false ,
+            errorsPercentage : null ,
+            sucessessesPercentage : null ,
+            openStatistics : false,
             snackBarColor: '',
             snackBarMessage: '',
             snackbarIcon: null,
@@ -103,23 +110,31 @@ class GameScreen extends Component {
 
         //Se o botão foi clickado Adiciono 1 a meus cards visitado
         this.state.numCards = this.state.numCards + 1
+        if (this.state.numCards !== numCards) {
+            if (this.state.pickedHeroe.name === e.target.value) {
+                Snack.message = "Você Acertou!"
+                Snack.color = "success"
+                Snack.icon = CheckIcon
 
-        if (this.state.pickedHeroe.name === e.target.value) {
-            Snack.message = "Você Acertou!"
-            Snack.color = "success"
-            Snack.icon = CheckIcon
+                this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
+            } else {
+                Snack.message = "Você errou!"
+                Snack.color = "warning"
+                Snack.icon = ErrorIcon
 
-            this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
-        } else {
-            Snack.message = "Você errou!"
-            Snack.color = "warning"
-            Snack.icon = ErrorIcon
+                this.setState({ errors: this.state.errors + 1 })
 
-            this.setState({ errors: this.state.errors + 1 })
-
+            }
+            this.setState({ heroLoaded: false, pickedHeroe: null })
+            this.loadingSnackBar(Snack)
+        }else{
+            if(this.state.sucessesses > this.state.errors){
+                this.setState({openStatistics : true , win : true}  )
+            }else{
+                this.setState({openStatistics : true , win : false}  )
+            }
+        
         }
-        this.setState({ heroLoaded: false, pickedHeroe: null })
-        this.loadingSnackBar(Snack)
     }
     selectHeroes = () => {
 
@@ -151,7 +166,13 @@ class GameScreen extends Component {
             }
         }
         return (
+           
             <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
+                 <DialogStatistics 
+                    open= {this.state.openStatistics} 
+                    won = {this.state.win} 
+                    errors ={this.state.errosPercentage} 
+                    sucessess = {this.state.sucessessesPercentage}  points={this.state.points} />
                 <Grid
 
                     container
@@ -162,7 +183,7 @@ class GameScreen extends Component {
                         xs="auto"
 
                     >
-                        <div className ="offset-xl-2">
+                        <div className="offset-xl-2">
                             <Item> Pontuacao : {this.state.points} </Item>
 
                             <SubItem>
@@ -184,7 +205,7 @@ class GameScreen extends Component {
                             {this.state.pickedHeroe ? <Card
                                 hoverable
                                 style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
-                                cover={<img alt="example" style={{ width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.md} />}
+                                cover={<img alt="example" style={{ width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.sm} />}
                             >
 
                                 <Meta title="" description="" />

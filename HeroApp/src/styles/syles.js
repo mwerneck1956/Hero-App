@@ -58,6 +58,13 @@ export const ButtonTitle = styled.h3`
     color : #5C49C6;
 
 `
+export const StatisticNumber = styled.h4 `
+    display : inline-block;
+    margin-left : %;
+    font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size : '3rem'
+
+`
 export const Menu = styled.div`
     margin-top : 10%;
     margin-left : 25%;

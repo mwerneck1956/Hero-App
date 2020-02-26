@@ -18,7 +18,7 @@ import Box from '@material-ui/core/Box';
 
 
 //Styled components
-import { Title, SubTitle, StatisticTitle } from '../styles/syles'
+import { Title, SubTitle, StatisticTitle ,StatisticNumber} from '../styles/syles'
 
 
 
@@ -50,9 +50,7 @@ export default function DialogStatistics(props) {
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open full-screen dialog
-      </Button>
+
             <Dialog fullWidth maxWidth="md" open={props.open} onClose={handleClose} TransitionComponent={Transition}>
 
                 <ListItem>
@@ -64,25 +62,30 @@ export default function DialogStatistics(props) {
                     </div>
                 </ListItem>
                 <List>
-                    <div className="col-12 d-flex justify-content-start">
+                    <div className="col-12 d-flex justify-content-start ml-3">
                         <StatisticTitle fontSize={2.5}>
                             Statistics
                            </StatisticTitle>
                     </div>
-                    <div className="col-12 d-flex justify-content-start ml-4">
+                    <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={2}>
-                            Errors : {props.erros}
+                            Errors : <StatisticNumber>{props.errors}</StatisticNumber>
                         </StatisticTitle>
                     </div>
-                    <div className="col-12 d-flex justify-content-start ml-4">
+                    <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={2}>
-                            Successes : {props.erros}
+                            Successes :<StatisticNumber>{props.sucessess}</StatisticNumber>
+                        </StatisticTitle>
+                    </div>
+                    <div className="col-12 d-flex justify-content-start ml-5">
+                        <StatisticTitle fontSize={2}>
+                            Points :  <StatisticNumber>{props.points}</StatisticNumber>
                         </StatisticTitle>
                     </div>
                 </List>
                 <ListItem button>
                     <div className= "col-12 d-flex justify-content-center ">
-                        <video autoplay="true" loop ="true"  style={{ width: "100%" , maxHeight : "40" }} src="https://thumbs.gfycat.com/SnarlingBeautifulDoe-mobile.mp4" type="video/mp4" className="img-fluid" />
+                        <video autoplay="true" loop ="true"  style={{ width: "100%" , maxHeight : "40" }} src={props.won ? "https://media.giphy.com/media/8vnih78ZeNTu3BOCrn/giphy.mp4" :"https://thumbs.gfycat.com/SnarlingBeautifulDoe-mobile.mp4" } type="video/mp4" className="img-fluid" />
                     </div>
                 </ListItem>
                 <ListItem button>

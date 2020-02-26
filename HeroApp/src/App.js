@@ -17,7 +17,7 @@ import GameView from './views/GameView'
 function App() {
   return (
     <div className="App" style={{backgroundColor : "whitesmoke"}}>
-      {/*  <Router>
+      {  <Router>
       
         <Switch>
           <Route exact path="/home">
@@ -29,8 +29,8 @@ function App() {
           <Redirect from='/' to='/home' /> 
         </Switch>
       
-      </Router> */}
-      <DialogStatistics open= {true} won = {false} />
+      </Router> }
+    
     </div>
   );
 }
