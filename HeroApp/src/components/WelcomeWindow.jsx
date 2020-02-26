@@ -23,17 +23,18 @@ const linkColor = {
 
     underline: 'none',
     listStyle: 'none',
-    color: "#1A1A64"
+    color : "whitesmoke"
+    //color: "#1A1A64"
 }
 const styleButton = {
     padding: '3%',
     fontFamily: 'avengersFont',
     marginTop: "3%",
-    fontSize: '3vh',
+    fontSize: '5vh',
     color: 'white',
     textAling: 'center',
-    backgroundColor : '#807F83',
-    borderRadius: '25px'
+   backgroundColor : 'rgb(24, 0, 64)',
+    //borderRadius: '25px'
 }
 export default class WelcomeWindow extends Component {
  
@@ -69,13 +70,13 @@ export default class WelcomeWindow extends Component {
                                 App
                         </Title>
 
-                            <Button style={styleButton} outline  color="secondary" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
+                            <Button style={styleButton}    color="dark" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
                             <br />
 
-                            <Button style={styleButton} color="secondary"><Link style={linkColor} to = "/aboutUs">Sobre</Link></Button>
+                            <Button style={styleButton}  color="dark"><Link style={linkColor} to = "/aboutUs">Sobre</Link></Button>
                             <br />
 
-                            <Button style={styleButton}  color="secondary"><a style={linkColor} href="http://github.com/mwerneck1956" target="_blank">GitHub </a></Button>
+                            <Button style={styleButton}   color="dark"><a style={linkColor} href="http://github.com/mwerneck1956" target="_blank">GitHub </a></Button>
 
                         </Menu>
                     </Col>

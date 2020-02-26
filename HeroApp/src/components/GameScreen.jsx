@@ -11,7 +11,7 @@ import { Button, Spinner } from 'reactstrap'
 import { Card, Row, Col } from 'antd';
 
 //Styled Components 
-import { Item, SubItem } from '../styles/syles'
+import { Item, SubItem, DivCard } from '../styles/syles'
 
 //MAterial Ui
 import { Grid } from '@material-ui/core'
@@ -28,6 +28,11 @@ const { Meta } = Card;
 let buttons;
 const numCards = 10;
 
+const Snack = {
+    message: '',
+    color: '',
+    icon: null
+}
 
 class GameScreen extends Component {
     constructor(props) {
@@ -90,162 +95,146 @@ class GameScreen extends Component {
 
         if (prevState.ActualHeroes !== this.state.ActualHeroes && this.state.heroeList !== null) {
             let actualHeros = this.selectHeroes()
-            buttons = this.state.ActualHeroes.map(heroSelected => (
-                <Button onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
-            ))
+
         }
     }
 
     verifyName = (e) => {
-        const Snack = {
-            message : '',
-            color : '',
-            icon : null
-        }
+
+        //Se o botão foi clickado Adiciono 1 a meus cards visitado
+        this.state.numCards = this.state.numCards + 1
 
         if (this.state.pickedHeroe.name === e.target.value) {
-            Snack.message = "Parabéns , você Acertou o nome do héroi"
-            Snack.color = "success" 
+            Snack.message = "Você Acertou!"
+            Snack.color = "success"
             Snack.icon = CheckIcon
 
             this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
         } else {
-            Snack.message = "Você errou o nome do héroi !!!"
-            Snack.color = "warning" 
+            Snack.message = "Você errou!"
+            Snack.color = "warning"
             Snack.icon = ErrorIcon
 
             this.setState({ errors: this.state.errors + 1 })
-            
+
         }
         this.setState({ heroLoaded: false, pickedHeroe: null })
         this.loadingSnackBar(Snack)
     }
     selectHeroes = () => {
-        let vetHerois = [], pickedHero
-        let numSorteado = this.numAleatorio(500)
-        var i = 0;
-        while (i < 3) {
-            if (i === 0) {
-                pickedHero = this.state.heroeList[numSorteado]
-            }
 
-            vetHerois.push(this.state.heroeList[numSorteado])
-            numSorteado = this.numAleatorio(500)
-            i++
-        }
+        let numSorteado = this.numAleatorio(this.state.heroeList.length)
+        let heroiSorteado = this.state.heroeList[numSorteado] //Ja que escolhi o sorteado deleto ele da minha lista para evitar duplicatas
+        this.state.heroeList.splice(numSorteado, 1) //Deletei o heroi do meu vetor de herois
 
-
-        return vetHerois
+        return heroiSorteado
     }
 
     render() {
 
         if (this.state.heroeList !== null && this.state.heroLoaded === false) {
             this.state.ActualHeroes = []
-            let heroes = this.selectHeroes()
-            heroes.map(hero => (
-                this.state.ActualHeroes.push(hero)
-            ))
-            this.state.ActualHeroes.concat(this.selectHeroes())
+
+            let pickedHero = this.selectHeroes() // Pego o heroi escolhido atraves da funcão auxiliar
+
+            this.setState({ pickedHeroe: pickedHero, heroLoaded: true })
 
 
-            if (this.state.ActualHeroes !== null) {
-                var indiceEscolhido = this.numAleatorio(this.state.ActualHeroes.length) //Sorteio um indice para o heroi escolhido  , e guardo esse indíce
-                // para  posteriormente deletar o heroi da minha lista de herois
-                this.setState({ pickedHeroe: this.state.ActualHeroes[indiceEscolhido], heroLoaded: true })
 
-                //Logo que escolhi um heroi deleto ele da minha lista de herois para evitar duplicatas
-                if (this.state.pickedHeroe) {
-                    this.state.heroeList.splice(indiceEscolhido, 1)
-                    console.log('heroe lsit perdeu 1', this.state.heroeList)
+            let random = this.numAleatorio(3) //Escolho um numero aleatorio para o heroi certo , para a posição do botao certo não ser o mesmo toda vez
+            for (var i = 0; i < 3; i++) {
+                if (i === random) {
+                    this.state.ActualHeroes.push(pickedHero)
+                } else {
+                    this.state.ActualHeroes.push(this.state.heroeList[this.numAleatorio(this.state.heroeList.length)])
                 }
-
-
             }
-            console.log('vetor de herois ', this.state.heroeList)
-            console.log('pickado ', this.state.pickedHeroe)
         }
         return (
             <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
                 <Grid
 
-                    container spacing={1}
+                    container
                     justify="space-around"
                 >
 
                     <Grid item xl={4}
                         xs="auto"
-                        spacing={2}
 
                     >
-                        <Item> Pontuacao : {this.state.points} </Item>
+                        <div className ="offset-xl-2">
+                            <Item> Pontuacao : {this.state.points} </Item>
 
-                        <SubItem>
+                            <SubItem>
 
-                            Acertos : {this.state.sucessesses}
-                            <br />
-                            Errors : {this.state.errors}
+                                Acertos : {this.state.sucessesses}
+                                <br />
+                                Errors : {this.state.errors}
 
-                        </SubItem>
-
+                            </SubItem>
+                        </div>
 
                     </Grid>
                     <Grid item
                         className="mt-3 mb-2"
-                        xl={4} xs={8} spacing={2}>
-                        {this.state.pickedHeroe ? <Card
-                            hoverable
-                            style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
-                            cover={<img alt="example" style={{ borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.md} />}
-                        >
+                        xl={4}
+                        xs={8}
+                    >
+                        <DivCard>
+                            {this.state.pickedHeroe ? <Card
+                                hoverable
+                                style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
+                                cover={<img alt="example" style={{ width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.md} />}
+                            >
 
-                            <Meta title="" description="" />
-                            <Grid
-                                container
-                                direction="column"
-                                justify="center"
-                                alignItems="center">
-                                {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
-                                    <Grid
-                                        fluid
-                                    >
-                                        <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
-                                        <br />
-                                    </Grid>
+                                <Meta title="" description="" />
+                                <Grid
+                                    container
+                                    direction="column"
+                                    justify="center"
+                                    alignItems="center">
+                                    {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
+                                        <Grid
+                                            fluid
+                                        >
+                                            <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
+                                            <br />
+                                        </Grid>
 
-                                )) : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />}
-                            </Grid>
+                                    )) : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />}
+                                </Grid>
 
-                        </Card> : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />
+                            </Card> : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />
 
-                        }
+                            }
+                        </DivCard>
+
                     </Grid>
                     <Grid
                         className="mt-5"
-                        item xl={2}
+                        item xl={4}
                     >
-                        <SubItem>
-                            Tempo Restante :
+                        <div className="offset-xl-5">
+                            <SubItem>
+                                Tempo Restante :
                             </SubItem>
-                        <SubItem>
-                            Cards Restantes :
+                            <SubItem>
+                                Cards Restantes : {numCards - this.state.numCards}
                             </SubItem>
+                        </div>
                     </Grid>
                 </Grid>
 
                 <Snackbar
                     place="bc"
-                    //color={this.state.snackBarColor}
-                    //icon={this.state.snackBarIcon}
-                    //message={this.state.snackBarMessage}
                     open={this.state.snackBarOpen}
                     closeNotification={() => this.setState({ snackBarOpen: false })}
                     close
                 >
-                    <MuiAlert  elevation={6} variant="filled"  severity ={this.state.snackBarColor}>
+                    <MuiAlert elevation={6} variant="filled" severity={this.state.snackBarColor}>
                         {this.state.snackBarMessage}
                     </MuiAlert>
-                    
+
                 </Snackbar>
 
             </div>

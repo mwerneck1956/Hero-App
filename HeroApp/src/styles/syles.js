@@ -17,7 +17,13 @@ export const MainImage = styled.img`
       }
 
 `
+export const DivCard = styled.div `
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
 
+`
 export const Item = styled.h2`
     margin-top : 9%;
     font-family : "avengersFont";
@@ -33,10 +39,11 @@ export const Title = styled.h1`
     text-align : center;
     margin : 5%;
     /* era 5%*/
-    font-size : 4rem ;
+    font-size : 5rem ;
     font-family : "avengersFont";
     /*color : #0B0930;*/
-    color :  #2C2A89 ;
+    /*color :  #2C2A89 ;*/
+    color : whitesmoke;
 `
 export const NavTitle = styled.h2`
     margin-top : 15% ;
