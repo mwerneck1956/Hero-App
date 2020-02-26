@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e7afaf4c.chunk.css",
+    "main.js": "/static/js/main.74001842.chunk.js",
+    "main.js.map": "/static/js/main.74001842.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.36d88d37.js",
+    "runtime-main.js.map": "/static/js/runtime-main.36d88d37.js.map",
+    "static/css/2.47e06e2e.chunk.css": "/static/css/2.47e06e2e.chunk.css",
+    "static/js/2.b367c072.chunk.js": "/static/js/2.b367c072.chunk.js",
+    "static/js/2.b367c072.chunk.js.map": "/static/js/2.b367c072.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.86a5945971ace0474a382d34989b2c57.js": "/precache-manifest.86a5945971ace0474a382d34989b2c57.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.47e06e2e.chunk.css.map": "/static/css/2.47e06e2e.chunk.css.map",
+    "static/css/main.e7afaf4c.chunk.css.map": "/static/css/main.e7afaf4c.chunk.css.map",
+    "static/js/2.b367c072.chunk.js.LICENSE.txt": "/static/js/2.b367c072.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/static/media/AvengersFontUrl.9d8f47e6.ttf",
+    "static/media/AvengersBg.jpg": "/static/media/AvengersBg.ec13f750.jpg",
+    "static/media/Portrait3.jpg": "/static/media/Portrait3.064f2d3f.jpg",
+    "static/media/heroAppContainer.jpg": "/static/media/heroAppContainer.589d178f.jpg",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
+    "static/media/portrairWelcomeImage.jpg": "/static/media/portrairWelcomeImage.39bad02f.jpg",
+    "static/media/portraitBg.jpg": "/static/media/portraitBg.e1032b74.jpg",
+    "static/media/walpaperView1.jpg": "/static/media/walpaperView1.c6704abe.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.36d88d37.js",
+    "static/css/2.47e06e2e.chunk.css",
+    "static/js/2.b367c072.chunk.js",
+    "static/css/main.e7afaf4c.chunk.css",
+    "static/js/main.74001842.chunk.js"
+  ]
+}
