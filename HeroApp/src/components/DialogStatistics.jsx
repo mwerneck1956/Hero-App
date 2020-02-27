@@ -55,7 +55,7 @@ export default function DialogStatistics(props) {
 
                 <ListItem>
                     <div className="col-12 d-flex  justify-content-center mt-3">
-                        <StatisticTitle fontSize={3}>
+                        <StatisticTitle fontSize={5}>
                             {props.won ? "Congratulation! You Won" : "You Lose !"}
 
                         </StatisticTitle>
@@ -63,23 +63,23 @@ export default function DialogStatistics(props) {
                 </ListItem>
                 <List>
                     <div className="col-12 d-flex justify-content-start ml-3">
-                        <StatisticTitle fontSize={2.5}>
+                        <StatisticTitle fontSize={4}>
                             Statistics
                            </StatisticTitle>
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
-                        <StatisticTitle fontSize={2}>
-                            Errors : <StatisticNumber>{props.errors}</StatisticNumber>
+                        <StatisticTitle fontSize={3}>
+                            Errors : <StatisticNumber>   {props.errors}%  </StatisticNumber>
                         </StatisticTitle>
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
-                        <StatisticTitle fontSize={2}>
-                            Successes :<StatisticNumber>{props.sucessess}</StatisticNumber>
+                        <StatisticTitle fontSize={3}>
+                            Successes :<StatisticNumber>      {props.sucessess}%   </StatisticNumber>
                         </StatisticTitle>
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
-                        <StatisticTitle fontSize={2}>
-                            Points :  <StatisticNumber>{props.points}</StatisticNumber>
+                        <StatisticTitle fontSize={2.8}>
+                            Points :  <StatisticNumber>   {props.points}    </StatisticNumber>
                         </StatisticTitle>
                     </div>
                 </List>

@@ -36,16 +36,20 @@ const Snack = {
     color: '',
     icon: null
 }
+const func = () => {
+    console.log('Hello after 4 seconds');
+};
 
 class GameScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            win : false ,
-            errorsPercentage : null ,
-            sucessessesPercentage : null ,
-            openStatistics : false,
+            counter: 10,
+            win: false,
+            errorsPercentage: null,
+            sucessessesPercentage: null,
+            openStatistics: false,
             snackBarColor: '',
             snackBarMessage: '',
             snackbarIcon: null,
@@ -64,10 +68,11 @@ class GameScreen extends Component {
 
         }
     }
-
     Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
+
+
 
     loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
         this.setState({
@@ -88,7 +93,9 @@ class GameScreen extends Component {
         return Math.floor(Math.random() * range) //Como o vetor de heroi tem tamanho 500 , pego un numero aleatorio de 0 a 499
     }
 
+
     componentDidMount() {
+        this.updateInterval()
         api.get("/all.json")
             .then(res => (
                 (
@@ -97,12 +104,12 @@ class GameScreen extends Component {
                     })
                 ))
             ).catch(error => alert('erro de comunicação com o servidor ' + error))
+
     }
     componentDidUpdate(prevState) {
 
         if (prevState.ActualHeroes !== this.state.ActualHeroes && this.state.heroeList !== null) {
             let actualHeros = this.selectHeroes()
-
         }
     }
 
@@ -110,32 +117,34 @@ class GameScreen extends Component {
 
         //Se o botão foi clickado Adiciono 1 a meus cards visitado
         this.state.numCards = this.state.numCards + 1
-        if (this.state.numCards !== numCards) {
-            if (this.state.pickedHeroe.name === e.target.value) {
-                Snack.message = "Você Acertou!"
-                Snack.color = "success"
-                Snack.icon = CheckIcon
+        if (this.state.pickedHeroe.name === e.target.value) {
+            Snack.message = "Você Acertou!"
+            Snack.color = "success"
+            Snack.icon = CheckIcon
+            this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
+        } else {
+            Snack.message = "Você errou!"
+            Snack.color = "warning"
+            Snack.icon = ErrorIcon
+            this.setState({ errors: this.state.errors + 1 })
 
-                this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
-            } else {
-                Snack.message = "Você errou!"
-                Snack.color = "warning"
-                Snack.icon = ErrorIcon
-
-                this.setState({ errors: this.state.errors + 1 })
-
-            }
-            this.setState({ heroLoaded: false, pickedHeroe: null })
-            this.loadingSnackBar(Snack)
-        }else{
-            if(this.state.sucessesses > this.state.errors){
-                this.setState({openStatistics : true , win : true}  )
-            }else{
-                this.setState({openStatistics : true , win : false}  )
-            }
-        
+        }
+        this.setState({ heroLoaded: false, pickedHeroe: null })
+        this.loadingSnackBar(Snack)
+        if (this.state.numCards === numCards) {
+            this.verifyWinner()
         }
     }
+
+    verifyWinner = () => {
+        if (this.state.sucessesses > this.state.errors) {
+            this.setState({ openStatistics: true, win: true })
+        } else {
+            this.setState({ openStatistics: true, win: false })
+
+        }
+    }
+
     selectHeroes = () => {
 
         let numSorteado = this.numAleatorio(this.state.heroeList.length)
@@ -145,16 +154,23 @@ class GameScreen extends Component {
         return heroiSorteado
     }
 
-    render() {
+    updateInterval = () => {
+        setInterval(this.updateCounter , 1000)
+    }
 
+    updateCounter = () => {
+        this.setState({ counter: this.state.counter - 1 })
+    }
+
+
+    render() {
+        
         if (this.state.heroeList !== null && this.state.heroLoaded === false) {
             this.state.ActualHeroes = []
 
             let pickedHero = this.selectHeroes() // Pego o heroi escolhido atraves da funcão auxiliar
 
             this.setState({ pickedHeroe: pickedHero, heroLoaded: true })
-
-
 
             let random = this.numAleatorio(3) //Escolho um numero aleatorio para o heroi certo , para a posição do botao certo não ser o mesmo toda vez
             for (var i = 0; i < 3; i++) {
@@ -165,14 +181,17 @@ class GameScreen extends Component {
                 }
             }
         }
+        if (this.state.counter === 0) {
+            this.verifyWinner()
+        }
         return (
-           
+
             <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
-                 <DialogStatistics 
-                    open= {this.state.openStatistics} 
-                    won = {this.state.win} 
-                    errors ={this.state.errosPercentage} 
-                    sucessess = {this.state.sucessessesPercentage}  points={this.state.points} />
+                <DialogStatistics
+                    open={this.state.openStatistics}
+                    won={this.state.win}
+                    errors={this.state.errors / numCards * 100}
+                    sucessess={this.state.sucessesses / numCards * 100} points={this.state.points + this.state.counter} />
                 <Grid
 
                     container
@@ -237,7 +256,7 @@ class GameScreen extends Component {
                     >
                         <div className="offset-xl-5">
                             <SubItem>
-                                Tempo Restante :
+                                Tempo Restante : {this.state.counter}
                             </SubItem>
                             <SubItem>
                                 Cards Restantes : {numCards - this.state.numCards}

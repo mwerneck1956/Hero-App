@@ -30,7 +30,7 @@ const styleButton = {
     padding: '3%',
     fontFamily: 'avengersFont',
     marginTop: "3%",
-    fontSize: '5vh',
+    fontSize: '4vh',
     color: 'white',
     textAling: 'center',
    backgroundColor : 'rgb(24, 0, 64)',

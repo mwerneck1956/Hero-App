@@ -60,7 +60,7 @@ export const ButtonTitle = styled.h3`
 `
 export const StatisticNumber = styled.h4 `
     display : inline-block;
-    margin-left : %;
+
     font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size : '3rem'
 
@@ -78,7 +78,7 @@ export const Menu = styled.div`
 `
 export const StatisticTitle  = styled.h2 `
     font-family : "avengersFont" ;
-    font-size  : ${props => `${props.fontSize}rem`} ;
+    font-size  : ${props => `${props.fontSize}vh`} ;
     color  : rgb(24, 0, 64);
      
 
