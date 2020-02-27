@@ -95,7 +95,9 @@ class GameScreen extends Component {
 
 
     componentDidMount() {
-        this.updateInterval()
+        this.interval = setInterval(this.updateCounter,1000);
+        setTimeout(this.verifyWinner , 10000)
+       // this.updateInterval()
         api.get("/all.json")
             .then(res => (
                 (
@@ -137,6 +139,7 @@ class GameScreen extends Component {
     }
 
     verifyWinner = () => {
+        clearInterval(this.interval)
         if (this.state.sucessesses > this.state.errors) {
             this.setState({ openStatistics: true, win: true })
         } else {
@@ -152,10 +155,6 @@ class GameScreen extends Component {
         this.state.heroeList.splice(numSorteado, 1) //Deletei o heroi do meu vetor de herois
 
         return heroiSorteado
-    }
-
-    updateInterval = () => {
-        setInterval(this.updateCounter , 1000)
     }
 
     updateCounter = () => {
@@ -181,9 +180,11 @@ class GameScreen extends Component {
                 }
             }
         }
-        if (this.state.counter === 0) {
-            this.verifyWinner()
+        if(this.state.counter === 0) 
+        {
+            clearInterval(this.interval)
         }
+
         return (
 
             <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
