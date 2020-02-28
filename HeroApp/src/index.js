@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Aos from 'aos'
 import * as serviceWorker from './serviceWorker';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
+Aos.init()
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

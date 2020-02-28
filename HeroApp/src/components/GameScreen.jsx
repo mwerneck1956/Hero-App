@@ -25,6 +25,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import CheckIcon from "@material-ui/icons/Check";
 import ErrorIcon from "@material-ui/icons/Error";
 
+//Images
+import AvengersPortrait from '../images/spider.jpg'
 
 const { Meta } = Card;
 
@@ -36,16 +38,13 @@ const Snack = {
     color: '',
     icon: null
 }
-const func = () => {
-    console.log('Hello after 4 seconds');
-};
 
 class GameScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            counter: 10,
+            counter: 60,
             win: false,
             errorsPercentage: null,
             sucessessesPercentage: null,
@@ -96,7 +95,7 @@ class GameScreen extends Component {
 
     componentDidMount() {
         this.interval = setInterval(this.updateCounter,1000);
-        setTimeout(this.verifyWinner , 10000)
+        setTimeout(this.verifyWinner , 60000)
        // this.updateInterval()
         api.get("/all.json")
             .then(res => (
@@ -140,6 +139,7 @@ class GameScreen extends Component {
 
     verifyWinner = () => {
         clearInterval(this.interval)
+
         if (this.state.sucessesses > this.state.errors) {
             this.setState({ openStatistics: true, win: true })
         } else {
@@ -198,7 +198,11 @@ class GameScreen extends Component {
                     container
                     justify="space-around"
                 >
-
+                    <Grid
+                        item xl = {1}
+                    >
+                        <img src ={AvengersPortrait}/> 
+                    </Grid>
                     <Grid item xl={4}
                         xs="auto"
 

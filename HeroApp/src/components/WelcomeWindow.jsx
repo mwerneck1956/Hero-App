@@ -1,13 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 
 
 //Reacstrap
 import { Container, Col, Row, Button } from 'reactstrap'
 
+
+//Animation Library
+import { Animated } from "react-animated-css";
+
 //Styled-Components
-import { Title, ButtonTitle, Menu } from '../styles/syles'
+import { Title, ButtonTitle, Menu, Panel } from '../styles/syles'
 
-
+//Aos Animated 
+import Aos from 'aos'
 
 import {
     Link,
@@ -18,12 +23,12 @@ import {
 //Images
 
 import AvengersBg from '../images/AvengersBg.jpg'
-import AvengersPortrait from '../images/portraitBg.jpg'
+import AvengersPortrait from '../images/spider.jpg'
 const linkColor = {
 
     underline: 'none',
     listStyle: 'none',
-    color : "whitesmoke"
+    color: "whitesmoke"
     //color: "#1A1A64"
 }
 const styleButton = {
@@ -33,11 +38,12 @@ const styleButton = {
     fontSize: '4vh',
     color: 'white',
     textAling: 'center',
-   backgroundColor : 'rgb(24, 0, 64)',
+    backgroundColor: 'rgb(24, 0, 64)',
     //borderRadius: '25px'
 }
+
 export default class WelcomeWindow extends Component {
- 
+
     updateDimensions = () => {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     };
@@ -57,30 +63,56 @@ export default class WelcomeWindow extends Component {
         }
     }
     render() {
+        Aos.init()
         return (
             <div
 
             >
+
+
                 <Row className="no-gutters">
-                    <img style={{ position: "fixed", width: "100%", objectFit: 'cover' }} src={this.state.height > this.state.width ? AvengersPortrait :AvengersBg }  className="img-fluid" />
-                    <Col xl={{ offset: 7, size: 5 } } xs ={{size : 12}}>
-                        <Menu>
-                            <Title>
-                                Hero <br />
-                                App
-                        </Title>
+                    <img style={{ position: "fixed", width: "100%", objectFit: 'cover' }} src={this.state.height > this.state.width ? AvengersPortrait : AvengersBg} className="img-fluid" />
+                    {/* */
 
-                            <Button style={styleButton}    color="dark" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
-                            <br />
 
-                            <Button style={styleButton}  color="dark"><Link style={linkColor} to = "/aboutUs">Sobre</Link></Button>
-                            <br />
 
-                            <Button style={styleButton}   color="dark"><a style={linkColor} href="http://github.com/mwerneck1956" target="_blank">GitHub </a></Button>
+                    }
+                    <Col xl={{ size: 12 }} xs={{ size: 12 }}>
+                        <div data-aos="slide-left"
+                            data-aos-offset="300"
+                            data-aos-easing="ease-in-sine"
+                        >
 
-                        </Menu>
+                            <Menu>
+                            <Animated animationIn="bounceIn" animationOut="fadeOutRight" animationInDuration={2000} animationOutDuration={2000} isVisible={true}>
+                                <Title>
+                                    Hero <br />
+                                    App
+                                    </Title>
+                            </Animated>
+
+
+                                {/* <Button style={styleButton} color="dark" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
+                                <br />
+
+                                <Button style={styleButton} color="dark"><Link style={linkColor} to="/aboutUs">Sobre</Link></Button>
+                                <br />
+
+                                <Button style={styleButton} color="dark"><a style={linkColor} href="http://github.com/mwerneck1956" target="_blank">GitHub </a></Button>*/}
+
+
+                            </Menu>
+
+                            <Animated animationIn="bounceIn" animationOut="fadeOutRight" animationInDuration={2000} animationOutDuration={2000} isVisible={true}>
+                                <div className="d-flex col justify-content-center">
+                                    <Link style={linkColor} to="/game"> <Button color="primary" >Start the Game</Button> </Link>
+                                </div>
+                            </Animated>
+
+                        </div>
                     </Col>
                 </Row>
+
             </div>
         )
     }

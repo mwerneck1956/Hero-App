@@ -1,22 +1,7 @@
 import portraitImage from '../images/portrairWelcomeImage.jpg'
 import styled from 'styled-components'
 import '../fonts/fonts.css'
-export const MainImage = styled.img`
 
-        src : "../" ;
-      @media(orientation : portrait) {
-         src : '../images/portrairWelcomeImage.jpg';
-         width : 100% ;
-         height : auto ;
-         max-height : '95%' ;
-         max-width : '90%'
-      }
-
-      @media(orientation : landscape){
-          src :   '../images/heroAp0B0930pContainer.jpg';
-      }
-
-`
 export const DivCard = styled.div `
     display : flex;
     flex-direction : column;
@@ -37,13 +22,13 @@ export const SubItem = styled.h4`
 `
 export const Title = styled.h1`
     text-align : center;
-    margin : 5%;
+    margin : 2%;
     /* era 5%*/
-    font-size : 5rem ;
+    font-size : 6.5rem ;
     font-family : "avengersFont";
     /*color : #0B0930;*/
     /*color :  #2C2A89 ;*/
-    color : whitesmoke;
+    color :#4A2160
 `
 export const NavTitle = styled.h2`
     margin-top : 15% ;
@@ -60,17 +45,17 @@ export const ButtonTitle = styled.h3`
 `
 export const StatisticNumber = styled.h4 `
     display : inline-block;
-
     font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size : '3rem'
+    font-size : '2rem';
 
 `
 export const Menu = styled.div`
-    margin-top : 10%;
+    margin-top : 7%;
     margin-left : 25%;
     width : 50%;
     display : flex;
-	flex-flow: column nowrap;
+    justify-content : center;
+	flex-direction : column;
     padding-left : 5%;
     padding-right : 5%;
     background-color : none;
@@ -83,3 +68,16 @@ export const StatisticTitle  = styled.h2 `
      
 
 `
+export const Panel = styled.div `
+  background-color:#fff;
+  border:solid 2px #000;
+  box-shadow:0 6px 6px -6px #000;
+  display:inline-block;
+  flex:1 1;
+  height:200px;
+  margin:1vmin;
+  overflow:hidden;
+  position:relative;
+  background-image:radial-gradient(circle, palegreen, yellowgreen);
+  width : 100%;
+  `
