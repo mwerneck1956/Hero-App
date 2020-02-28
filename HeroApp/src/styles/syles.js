@@ -10,9 +10,9 @@ export const DivCard = styled.div `
 
 `
 export const Item = styled.h2`
-    margin-top : 9%;
+    margin-top : 3%;
     font-family : "avengersFont";
-    font-size : 5vh ;
+    font-size : 4vh ;
 `
 export const SubItem = styled.h4`
     /* era 5%*/
@@ -28,7 +28,7 @@ export const Title = styled.h1`
     font-family : "avengersFont";
     /*color : #0B0930;*/
     /*color :  #2C2A89 ;*/
-    color :#4A2160
+    color :#1A1808;
 `
 export const NavTitle = styled.h2`
     margin-top : 15% ;
@@ -74,7 +74,7 @@ export const Panel = styled.div `
   box-shadow:0 6px 6px -6px #000;
   display:inline-block;
   flex:1 1;
-  height:200px;
+  height:80vh;
   margin:1vmin;
   overflow:hidden;
   position:relative;
