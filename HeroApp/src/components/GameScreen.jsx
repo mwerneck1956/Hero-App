@@ -30,7 +30,10 @@ import ErrorIcon from "@material-ui/icons/Error";
 import TimerIcon from '@material-ui/icons/Timer';
 
 //Images
-import AvengersPortrait from '../images/spider.jpg'
+import BackgroundImage from '../images/BackgroundGameScreen.jpg'
+
+
+
 
 const { Meta } = Card;
 
@@ -43,6 +46,11 @@ const Snack = {
     icon: null
 }
 
+
+const SpinnerConst = (
+    <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }}/>
+)
+
 class GameScreen extends Component {
     constructor(props) {
         super(props)
@@ -50,6 +58,7 @@ class GameScreen extends Component {
         this.state = {
             counter: 60,
             win: false,
+            imageLoaded : false ,
             errorsPercentage: null,
             sucessessesPercentage: null,
             openStatistics: false,
@@ -74,9 +83,9 @@ class GameScreen extends Component {
     Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
-
-
+    HandleImageLoaded = () =>{
+        this.setState({imageLoaded : true})
+    }
     loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
         this.setState({
             snackBarColor: snack.color,
@@ -134,7 +143,7 @@ class GameScreen extends Component {
             this.setState({ errors: this.state.errors + 1 })
 
         }
-        this.setState({ heroLoaded: false, pickedHeroe: null })
+        this.setState({ heroLoaded: false, pickedHeroe: null  , imageLoaded : false})
         this.loadingSnackBar(Snack)
         if (this.state.numCards === numCards) {
             this.verifyWinner()
@@ -187,25 +196,34 @@ class GameScreen extends Component {
         if (this.state.counter === 0) {
             clearInterval(this.interval)
         }
-
+        const styleBackground = {
+            opacity : "0.2" ,  
+            position: "absolute", 
+            width: "100%", 
+            objectFit: 'cover' , 
+            height : "100vh" 
+        }
         return (
 
-            <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
+            <div >
                 <DialogStatistics
                     open={this.state.openStatistics}
                     won={this.state.win}
-                    errors={this.state.errors / numCards * 100}
-                    sucessess={this.state.sucessesses / numCards * 100} points={this.state.points + this.state.counter} />
+                    errors={this.state.errors / this.state.numCards * 100}
+                    sucessess={this.state.sucessesses / this.state.numCards * 100} points={this.state.points + this.state.counter} />
+
                 <Grid
                     container
-
+                    fluid
                 >
+                      
                     <Grid
                         item
                         className="mt-0 mb-2"
                         xl={12}
                         xs={8}
-                    >
+                    >   
+                        <img style={styleBackground}src= {BackgroundImage}/>
                         <Grid
                             item
                             container
@@ -220,21 +238,22 @@ class GameScreen extends Component {
                             <ErrorIcon style={{ color: "#B33A3A    " }} fontSize="large" /> : {this.state.errors}
                             </Item>
                             <Grid
+                                stlye={{position : "absolute"}}
                                 item
                                 container
                                 direction="col"
                                 justify="center"
-                                alignItems="flex-start"
                             >
-                                <DivCard>
+                               
                                     {this.state.pickedHeroe ? <Card
                                         hoverable
-                                        style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
-                                        cover={<img alt="example" style={{ width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.sm} />}
+                                        style={{ width: 300 , position : "absolute"}}
+                                        cover={ <img onLoad = {this.HandleImageLoaded} alt="example" style={{ height : "300" ,width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ?  this.state.pickedHeroe.images.sm : "https://media.giphy.com/media/38msMCMSMUK7m/giphy.gif"} />}
                                     >
-
+                        
                                         <Meta title="" description="" />
                                         <Grid
+                                            xl = {12}
                                             container
                                             direction="column"
                                             justify="center"
@@ -253,11 +272,12 @@ class GameScreen extends Component {
                                     </Card> : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />
 
                                     }
-                                </DivCard>
+                            
                             </Grid>
                         </Grid>
                         <Grid
-                            className ="mt-3"
+                            style={{position : "absolute"}}
+                            
                             container
                             item
                             direction="col"

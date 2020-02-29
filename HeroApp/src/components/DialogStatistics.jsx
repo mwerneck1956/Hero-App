@@ -69,17 +69,17 @@ export default function DialogStatistics(props) {
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={3}>
-                            Errors : <StatisticNumber>   {props.errors}%  </StatisticNumber>
+                            Errors :  &nbsp;<StatisticNumber>   {props.errors}%  </StatisticNumber>
                         </StatisticTitle>
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={3}>
-                            Successes :<StatisticNumber>      {props.sucessess}%   </StatisticNumber>
+                            Successes : &nbsp;<StatisticNumber>      {props.sucessess}%   </StatisticNumber>
                         </StatisticTitle>
                     </div>
                     <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={2.8}>
-                            Points :  <StatisticNumber>   {props.points}    </StatisticNumber>
+                            Points : &nbsp;  <StatisticNumber>   {props.points}    </StatisticNumber>
                         </StatisticTitle>
                     </div>
                 </List>

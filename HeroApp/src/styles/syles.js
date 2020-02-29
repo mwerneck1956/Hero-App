@@ -5,8 +5,20 @@ import '../fonts/fonts.css'
 export const DivCard = styled.div `
     display : flex;
     flex-direction : column;
+    align-items : center;
+    justify-items : center;
+
     justify-content : center;
     align-items : center;
+
+`
+
+export const BackgroundGameScreen = styled.div `
+   background-image: url("../images/BackgroundGameScreen.jpg");
+   background-size : cover;
+   position : fixed;
+   height  : 100vh;
+   width  : 100vw;
 
 `
 export const Item = styled.h2`

@@ -9,7 +9,7 @@ import { Container, Col, Row, Button } from 'reactstrap'
 import { Animated } from "react-animated-css";
 
 //Styled-Components
-import { Title, ButtonTitle, Menu, Panel } from '../styles/syles'
+import { Title, Menu, BackgroundGameScreen} from '../styles/syles'
 
 //Aos Animated 
 import Aos from 'aos'
@@ -21,6 +21,7 @@ import {
 } from 'react-router-dom'
 
 //Images
+
 
 import AvengersBg from '../images/AvengersBg.jpg'
 import AvengersPortrait from '../images/spider.jpg'
@@ -41,7 +42,13 @@ const styleButton = {
     backgroundColor: 'rgb(24, 0, 64)',
     //borderRadius: '25px'
 }
-
+const styleBackground = {
+    opacity : "0.2" ,  
+    position: "absolute", 
+    width: "100%", 
+    objectFit: 'cover' , 
+    height : "100vh" 
+}
 export default class WelcomeWindow extends Component {
 
     updateDimensions = () => {
@@ -62,15 +69,17 @@ export default class WelcomeWindow extends Component {
             height: window.innerHeight
         }
     }
+
+  
     render() {
+      
+
         return (
             <div
 
             >
-
-
                 <Row className="no-gutters">
-                    <img style={{ position: "fixed", width: "100%", objectFit: 'cover' }} src={this.state.height > this.state.width ? AvengersPortrait : AvengersBg} className="img-fluid" />
+                    <img style={styleBackground} src={AvengersBg} /*className="img-fluid"*/ />
                     <Col xl={{ size: 12 }} xs={{ size: 12 }}>
                         <div data-aos="slide-left"
                             data-aos-offset="300"
