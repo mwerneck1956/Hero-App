@@ -11,8 +11,14 @@ import { Button, Spinner } from 'reactstrap'
 
 
 //Ant design
-import { Card, Row, Col } from 'antd';
+import { Card } from 'antd';
 
+
+
+
+
+//Reactstrap
+import { Col, Row, Container } from 'reactstrap'
 //Styled Components 
 import { Item, SubItem, DivCard, Panel } from '../styles/syles'
 
@@ -31,7 +37,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 
 //Images
 import BackgroundImage from '../images/BackgroundGameScreen.jpg'
-
+import LoadingImage from '../images/LoadingImage.gif'
 
 
 
@@ -47,9 +53,12 @@ const Snack = {
 }
 
 
-const SpinnerConst = (
-    <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }}/>
-)
+
+const LoadingSpinner = () => {
+    return (
+        <Spinner style={{marginTop: '5%'  , width: '3rem', height: '3rem' }} />
+    )
+}
 
 class GameScreen extends Component {
     constructor(props) {
@@ -58,7 +67,7 @@ class GameScreen extends Component {
         this.state = {
             counter: 60,
             win: false,
-            imageLoaded : false ,
+            imageLoaded: false,
             errorsPercentage: null,
             sucessessesPercentage: null,
             openStatistics: false,
@@ -83,8 +92,8 @@ class GameScreen extends Component {
     Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    HandleImageLoaded = () =>{
-        this.setState({imageLoaded : true})
+    HandleImageLoaded = () => {
+        this.setState({ imageLoaded: true })
     }
     loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
         this.setState({
@@ -143,7 +152,7 @@ class GameScreen extends Component {
             this.setState({ errors: this.state.errors + 1 })
 
         }
-        this.setState({ heroLoaded: false, pickedHeroe: null  , imageLoaded : false})
+        this.setState({ heroLoaded: false, pickedHeroe: null, imageLoaded: false })
         this.loadingSnackBar(Snack)
         if (this.state.numCards === numCards) {
             this.verifyWinner()
@@ -197,102 +206,84 @@ class GameScreen extends Component {
             clearInterval(this.interval)
         }
         const styleBackground = {
-            opacity : "0.2" ,  
-            position: "absolute", 
-            width: "100%", 
-            objectFit: 'cover' , 
-            height : "100vh" 
+            opacity: "0.2",
+            position: "absolute",
+            width: "100%",
+            objectFit: 'cover',
+            height: "100vh"
         }
         return (
 
-            <div >
+            <div
+
+            >
+
+                <img style={styleBackground} src={BackgroundImage} />
+
+                <Row className="row no-gutters justify-content-center">
+                    <Col xl="12" className="d-flex justify-content-center">
+                        <Item> Pontuacao : {this.state.points}
+                            &nbsp;	&nbsp;	&nbsp;
+                            <CheckIcon style={{ color: green[500] }} fontSize="large" /> : {this.state.sucessesses}
+                            &nbsp;	 &nbsp;
+                            <ErrorIcon style={{ color: "#B33A3A    " }} fontSize="large" /> : {this.state.errors}
+                        </Item>
+                    </Col>
+                    <Col className="d-flex justify-content-center ">
+                        <SubItem>
+                            <TimerIcon fontSize="large" />   {this.state.counter}
+                        </SubItem>
+
+                    </Col>
+                </Row>
+                <Row className="row no-gutters">
+                    <Col xl={12} style={{ position: 'absolute' }} className="d-flex justify-content-center">
+                        {this.state.pickedHeroe  ? 
+                        <Card
+                            hoverable
+                            style={{ width: 300, position: "absolute"}}
+                            cover={ 
+                               
+                                <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: '350px',  height : '450px' ,  borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ? this.state.pickedHeroe.images.sm : "https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif"}  /> 
+                               
+                            }
+                        >
+
+                            <Meta title="" description="" />
+                            <Grid
+                                xl={12}
+                                container
+                                direction="column"
+                                justify="center"
+                                alignItems="center">
+                                {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
+                                    <Grid
+                                        fluid
+                                    >
+                                        <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
+                                        <br />
+                                    </Grid>
+
+                                )) : <LoadingSpinner/>}
+                            </Grid>
+
+                        </Card> : <LoadingSpinner/>
+
+                        }
+                    </Col>
+
+                </Row>
+
+
+
                 <DialogStatistics
                     open={this.state.openStatistics}
                     won={this.state.win}
                     errors={this.state.errors / this.state.numCards * 100}
-                    sucessess={this.state.sucessesses / this.state.numCards * 100} points={this.state.points + this.state.counter} />
+                    sucessess={this.state.sucessesses / this.state.numCards * 100} points={this.state.points + this.state.counter}
+                />
 
-                <Grid
-                    container
-                    fluid
-                >
-                      
-                    <Grid
-                        item
-                        className="mt-0 mb-2"
-                        xl={12}
-                        xs={8}
-                    >   
-                        <img style={styleBackground}src= {BackgroundImage}/>
-                        <Grid
-                            item
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <Item> Pontuacao : {this.state.points}
-                                &nbsp;	&nbsp;	&nbsp;
-                            <CheckIcon style={{ color: green[500] }} fontSize="large" /> : {this.state.sucessesses}
-                                &nbsp;	 &nbsp;
-                            <ErrorIcon style={{ color: "#B33A3A    " }} fontSize="large" /> : {this.state.errors}
-                            </Item>
-                            <Grid
-                                stlye={{position : "absolute"}}
-                                item
-                                container
-                                direction="col"
-                                justify="center"
-                            >
-                               
-                                    {this.state.pickedHeroe ? <Card
-                                        hoverable
-                                        style={{ width: 300 , position : "absolute"}}
-                                        cover={ <img onLoad = {this.HandleImageLoaded} alt="example" style={{ height : "300" ,width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ?  this.state.pickedHeroe.images.sm : "https://media.giphy.com/media/38msMCMSMUK7m/giphy.gif"} />}
-                                    >
-                        
-                                        <Meta title="" description="" />
-                                        <Grid
-                                            xl = {12}
-                                            container
-                                            direction="column"
-                                            justify="center"
-                                            alignItems="center">
-                                            {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
-                                                <Grid
-                                                    fluid
-                                                >
-                                                    <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
-                                                    <br />
-                                                </Grid>
-
-                                            )) : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />}
-                                        </Grid>
-
-                                    </Card> : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />
-
-                                    }
-                            
-                            </Grid>
-                        </Grid>
-                        <Grid
-                            style={{position : "absolute"}}
-                            
-                            container
-                            item
-                            direction="col"
-                            alignItens="center"
-                            justify="center"
-                        >
-                            <SubItem>
-                                <TimerIcon fontSize= "large"/>   {this.state.counter}
-                                <br/>
-                            </SubItem>
-                            
-                        </Grid>
-
-                    </Grid>
-                </Grid>
+            
 
                 <Snackbar
                     place="bc"
@@ -306,7 +297,8 @@ class GameScreen extends Component {
 
                 </Snackbar>
 
-            </div >
+
+            </div>
         )
     }
 }
