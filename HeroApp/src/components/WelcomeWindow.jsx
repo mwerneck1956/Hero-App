@@ -21,10 +21,8 @@ import {
 } from 'react-router-dom'
 
 //Images
-
-
 import AvengersBg from '../images/AvengersBg.jpg'
-import AvengersPortrait from '../images/spider.jpg'
+
 const linkColor = {
 
     underline: 'none',
@@ -79,7 +77,7 @@ export default class WelcomeWindow extends Component {
 
             >
                 <Row className="no-gutters">
-                    <img style={styleBackground} src={AvengersBg} /*className="img-fluid"*/ />
+                    <img style={styleBackground} src={AvengersBg} />
                     <Col xl={{ size: 12 }} xs={{ size: 12 }}>
                         <div data-aos="slide-left"
                             data-aos-offset="300"
@@ -93,15 +91,6 @@ export default class WelcomeWindow extends Component {
                                         App
                                     </Title>
                                 </Animated>
-
-
-                                {/* <Button style={styleButton} color="dark" > <Link to="/game" style={linkColor}> Iniciar o Jogo</Link></Button>
-                                <br />
-
-                                <Button style={styleButton} color="dark"><Link style={linkColor} to="/aboutUs">Sobre</Link></Button>
-                                <br />
-
-                                <Button style={styleButton} color="dark"><a style={linkColor} href="http://github.com/mwerneck1956" target="_blank">GitHub </a></Button>*/}
 
 
                             </Menu>

@@ -37,7 +37,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 
 //Images
 import BackgroundImage from '../images/BackgroundGameScreen.jpg'
-import LoadingImage from '../images/LoadingImage.gif'
+import LoadingImage from '../images/loading.gif'
 
 
 
@@ -214,7 +214,7 @@ class GameScreen extends Component {
         }
         return (
 
-            <div
+            <div style={{overfloY : 'scroll'}}
 
             >
 
@@ -244,11 +244,10 @@ class GameScreen extends Component {
                             style={{ width: 300, position: "absolute"}}
                             cover={ 
                                
-                                <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: '350px',  height : '450px' ,  borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ? this.state.pickedHeroe.images.sm : "https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif"}  /> 
+                                <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: '350px',  height : '47vh' ,  borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ?  this.state.pickedHeroe.images.sm  : "https://i.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.webp" }  /> 
                                
                             }
                         >
-
                             <Meta title="" description="" />
                             <Grid
                                 xl={12}

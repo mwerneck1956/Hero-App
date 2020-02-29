@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import WelcomeBody from '../components/WelcomeBody'
+
 import WelcomeWindow from '../components/WelcomeWindow'
 class WelcomePage extends Component {
     constructor(props) {
