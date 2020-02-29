@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-import WelcomeBody from '../src/components/WelcomeBody'
 import MainNavbar from './components/MainNavbar'
-import ShowWindowDimension from './components/ShowWindowDimension'
+import DialogStatistics from './components/DialogStatistics'
+
+
+
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,8 +19,8 @@ import WelcomePage from './views/WelcomePage'
 import GameView from './views/GameView'
 function App() {
   return (
-    <div className="App" style={{backgroundColor : "whitesmoke"}}>
-      <Router>
+    <div className="App">
+      {  <Router>
       
         <Switch>
           <Route exact path="/home">
@@ -28,7 +32,8 @@ function App() {
           <Redirect from='/' to='/home' /> 
         </Switch>
       
-      </Router>
+      </Router> }
+    
     </div>
   );
 }

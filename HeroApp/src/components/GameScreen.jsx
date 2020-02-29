@@ -3,24 +3,42 @@ import api from '../services/api'
 import axios from 'axios'
 
 
+//Components
+import DialogStatistics from './DialogStatistics'
+
 //Reacstrap
 import { Button, Spinner } from 'reactstrap'
 
 
 //Ant design
-import { Card, Row, Col } from 'antd';
+import { Card } from 'antd';
 
+
+
+
+
+//Reactstrap
+import { Col, Row, Container } from 'reactstrap'
 //Styled Components 
-import { Item, SubItem, DivCard } from '../styles/syles'
+import { Item, SubItem, DivCard, Panel } from '../styles/syles'
 
 //MAterial Ui
 import { Grid } from '@material-ui/core'
 import { Snackbar } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
 
 import MuiAlert from '@material-ui/lab/Alert';
+
+
 //Material Ui Icons
 import CheckIcon from "@material-ui/icons/Check";
 import ErrorIcon from "@material-ui/icons/Error";
+import TimerIcon from '@material-ui/icons/Timer';
+
+//Images
+import BackgroundImage from '../images/BackgroundGameScreen.jpg'
+import LoadingImage from '../images/loading.gif'
+
 
 
 const { Meta } = Card;
@@ -34,11 +52,25 @@ const Snack = {
     icon: null
 }
 
+
+
+const LoadingSpinner = () => {
+    return (
+        <Spinner style={{marginTop: '5%'  , width: '3rem', height: '3rem' }} />
+    )
+}
+
 class GameScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            counter: 60,
+            win: false,
+            imageLoaded: false,
+            errorsPercentage: null,
+            sucessessesPercentage: null,
+            openStatistics: false,
             snackBarColor: '',
             snackBarMessage: '',
             snackbarIcon: null,
@@ -57,11 +89,12 @@ class GameScreen extends Component {
 
         }
     }
-
     Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
+    HandleImageLoaded = () => {
+        this.setState({ imageLoaded: true })
+    }
     loadingSnackBar(snack) { //Função para carregar a snack bar falando se usuario errou ou acertou o héroi
         this.setState({
             snackBarColor: snack.color,
@@ -81,7 +114,11 @@ class GameScreen extends Component {
         return Math.floor(Math.random() * range) //Como o vetor de heroi tem tamanho 500 , pego un numero aleatorio de 0 a 499
     }
 
+
     componentDidMount() {
+        this.interval = setInterval(this.updateCounter, 1000);
+        setTimeout(this.verifyWinner, 60000)
+        // this.updateInterval()
         api.get("/all.json")
             .then(res => (
                 (
@@ -90,12 +127,12 @@ class GameScreen extends Component {
                     })
                 ))
             ).catch(error => alert('erro de comunicação com o servidor ' + error))
+
     }
     componentDidUpdate(prevState) {
 
         if (prevState.ActualHeroes !== this.state.ActualHeroes && this.state.heroeList !== null) {
             let actualHeros = this.selectHeroes()
-
         }
     }
 
@@ -103,24 +140,36 @@ class GameScreen extends Component {
 
         //Se o botão foi clickado Adiciono 1 a meus cards visitado
         this.state.numCards = this.state.numCards + 1
-
         if (this.state.pickedHeroe.name === e.target.value) {
             Snack.message = "Você Acertou!"
             Snack.color = "success"
             Snack.icon = CheckIcon
-
             this.setState({ points: this.state.points + 20, sucessesses: this.state.sucessesses + 1 })
         } else {
             Snack.message = "Você errou!"
             Snack.color = "warning"
             Snack.icon = ErrorIcon
-
             this.setState({ errors: this.state.errors + 1 })
 
         }
-        this.setState({ heroLoaded: false, pickedHeroe: null })
+        this.setState({ heroLoaded: false, pickedHeroe: null, imageLoaded: false })
         this.loadingSnackBar(Snack)
+        if (this.state.numCards === numCards) {
+            this.verifyWinner()
+        }
     }
+
+    verifyWinner = () => {
+        clearInterval(this.interval)
+
+        if (this.state.sucessesses > this.state.errors) {
+            this.setState({ openStatistics: true, win: true })
+        } else {
+            this.setState({ openStatistics: true, win: false })
+
+        }
+    }
+
     selectHeroes = () => {
 
         let numSorteado = this.numAleatorio(this.state.heroeList.length)
@@ -129,6 +178,11 @@ class GameScreen extends Component {
 
         return heroiSorteado
     }
+
+    updateCounter = () => {
+        this.setState({ counter: this.state.counter - 1 })
+    }
+
 
     render() {
 
@@ -139,8 +193,6 @@ class GameScreen extends Component {
 
             this.setState({ pickedHeroe: pickedHero, heroLoaded: true })
 
-
-
             let random = this.numAleatorio(3) //Escolho um numero aleatorio para o heroi certo , para a posição do botao certo não ser o mesmo toda vez
             for (var i = 0; i < 3; i++) {
                 if (i === random) {
@@ -150,80 +202,87 @@ class GameScreen extends Component {
                 }
             }
         }
+        if (this.state.counter === 0) {
+            clearInterval(this.interval)
+        }
+        const styleBackground = {
+            opacity: "0.2",
+            position: "absolute",
+            width: "100%",
+            objectFit: 'cover',
+            height: "100vh"
+        }
         return (
-            <div style={{ backgroundColor: 'whitesmoke', height: "100%" }}>
-                <Grid
 
-                    container
-                    justify="space-around"
-                >
+            <div style={{overfloY : 'scroll'}}
 
-                    <Grid item xl={4}
-                        xs="auto"
+            >
 
-                    >
-                        <div className ="offset-xl-2">
-                            <Item> Pontuacao : {this.state.points} </Item>
+                <img style={styleBackground} src={BackgroundImage} />
 
-                            <SubItem>
+                <Row className="row no-gutters justify-content-center">
+                    <Col xl="12" className="d-flex justify-content-center">
+                        <Item> Pontuacao : {this.state.points}
+                            &nbsp;	&nbsp;	&nbsp;
+                            <CheckIcon style={{ color: green[500] }} fontSize="large" /> : {this.state.sucessesses}
+                            &nbsp;	 &nbsp;
+                            <ErrorIcon style={{ color: "#B33A3A    " }} fontSize="large" /> : {this.state.errors}
+                        </Item>
+                    </Col>
+                    <Col className="d-flex justify-content-center ">
+                        <SubItem>
+                            <TimerIcon fontSize="large" />   {this.state.counter}
+                        </SubItem>
 
-                                Acertos : {this.state.sucessesses}
-                                <br />
-                                Errors : {this.state.errors}
-
-                            </SubItem>
-                        </div>
-
-                    </Grid>
-                    <Grid item
-                        className="mt-3 mb-2"
-                        xl={4}
-                        xs={8}
-                    >
-                        <DivCard>
-                            {this.state.pickedHeroe ? <Card
-                                hoverable
-                                style={{ width: 300, backgroundColor: 'whitesmoke', marginTop: "5%" }}
-                                cover={<img alt="example" style={{ width: '350px', borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.pickedHeroe.images.md} />}
-                            >
-
-                                <Meta title="" description="" />
-                                <Grid
-                                    container
-                                    direction="column"
-                                    justify="center"
-                                    alignItems="center">
-                                    {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
-                                        <Grid
-                                            fluid
-                                        >
-                                            <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
-                                            <br />
-                                        </Grid>
-
-                                    )) : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />}
-                                </Grid>
-
-                            </Card> : <Spinner style={{ marginLeft: "25%", marginTop: '25%', width: '3rem', height: '3rem' }} />
-
+                    </Col>
+                </Row>
+                <Row className="row no-gutters">
+                    <Col xl={12} style={{ position: 'absolute' }} className="d-flex justify-content-center">
+                        {this.state.pickedHeroe  ? 
+                        <Card
+                            hoverable
+                            style={{ width: 300, position: "absolute"}}
+                            cover={ 
+                               
+                                <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: '350px',  height : '47vh' ,  borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ?  this.state.pickedHeroe.images.sm  : "https://i.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.webp" }  /> 
+                               
                             }
-                        </DivCard>
+                        >
+                            <Meta title="" description="" />
+                            <Grid
+                                xl={12}
+                                container
+                                direction="column"
+                                justify="center"
+                                alignItems="center">
+                                {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
+                                    <Grid
+                                        fluid
+                                    >
+                                        <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
+                                        <br />
+                                    </Grid>
 
-                    </Grid>
-                    <Grid
-                        className="mt-5"
-                        item xl={4}
-                    >
-                        <div className="offset-xl-5">
-                            <SubItem>
-                                Tempo Restante :
-                            </SubItem>
-                            <SubItem>
-                                Cards Restantes : {numCards - this.state.numCards}
-                            </SubItem>
-                        </div>
-                    </Grid>
-                </Grid>
+                                )) : <LoadingSpinner/>}
+                            </Grid>
+
+                        </Card> : <LoadingSpinner/>
+
+                        }
+                    </Col>
+
+                </Row>
+
+
+
+                <DialogStatistics
+                    open={this.state.openStatistics}
+                    won={this.state.win}
+                    errors={this.state.errors / this.state.numCards * 100}
+                    sucessess={this.state.sucessesses / this.state.numCards * 100} points={this.state.points + this.state.counter}
+                />
+
+            
 
                 <Snackbar
                     place="bc"
@@ -236,6 +295,7 @@ class GameScreen extends Component {
                     </MuiAlert>
 
                 </Snackbar>
+
 
             </div>
         )
