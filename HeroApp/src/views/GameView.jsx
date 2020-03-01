@@ -24,11 +24,11 @@ class GameView extends Component {
 
     render() {
         return (
-            <BackgroundGameScreen>
+          <div>
                 
                 <MainNavbar/>
                 <GameScreen/>
-            </BackgroundGameScreen>
+                </div>
         )
     }
 }

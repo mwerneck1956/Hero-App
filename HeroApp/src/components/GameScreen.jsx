@@ -56,7 +56,7 @@ const Snack = {
 
 const LoadingSpinner = () => {
     return (
-        <Spinner style={{marginTop: '5%'  , width: '3rem', height: '3rem' }} />
+        <Spinner style={{ marginTop: '5%', width: '3rem', height: '3rem' }} />
     )
 }
 
@@ -210,67 +210,62 @@ class GameScreen extends Component {
             position: "absolute",
             width: "100%",
             objectFit: 'cover',
-            height: "100vh"
+            height: "100vh",
+          
         }
         return (
 
-            <div style={{overfloY : 'scroll'}}
-
+            <Grid
+               style={{overflowX: "block"}}
             >
 
                 <img style={styleBackground} src={BackgroundImage} />
 
-                <Row className="row no-gutters justify-content-center">
+                <Row  className="row no-gutters justify-content-center">
                     <Col xl="12" className="d-flex justify-content-center">
-                        <Item> Pontuacao : {this.state.points}
+                        <Item> Points : {this.state.points}
                             &nbsp;	&nbsp;	&nbsp;
                             <CheckIcon style={{ color: green[500] }} fontSize="large" /> : {this.state.sucessesses}
                             &nbsp;	 &nbsp;
                             <ErrorIcon style={{ color: "#B33A3A    " }} fontSize="large" /> : {this.state.errors}
                         </Item>
                     </Col>
-                    <Col className="d-flex justify-content-center ">
+                    <Col xl = "12" className="d-flex justify-content-center ">
                         <SubItem>
                             <TimerIcon fontSize="large" />   {this.state.counter}
                         </SubItem>
 
                     </Col>
                 </Row>
-                <Row className="row no-gutters">
-                    <Col xl={12} style={{ position: 'absolute' }} className="d-flex justify-content-center">
-                        {this.state.pickedHeroe  ? 
-                        <Card
-                            hoverable
-                            style={{ width: 300, position: "absolute"}}
-                            cover={ 
-                               
-                                <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: '350px',  height : '47vh' ,  borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ?  this.state.pickedHeroe.images.sm  : "https://i.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.webp" }  /> 
-                               
-                            }
-                        >
-                            <Meta title="" description="" />
-                            <Grid
-                                xl={12}
-                                container
-                                direction="column"
-                                justify="center"
-                                alignItems="center">
-                                {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
-                                    <Grid
-                                        fluid
-                                    >
+                <Row >
+                    <Col xl="12" className="d-flex justify-content-center">
+                        {this.state.pickedHeroe ?
+                            <Card
+                                hoverable
+                                style={{ width: 300}}
+                                cover={
+                                        <img onLoad={this.HandleImageLoaded} alt="example" style={{ objectFit: "cover", width: 350 , maxHeight : "60vh", height  :"450px", borderRadius: '15px 15px 15px 15px' }} className="img-fluid" src={this.state.imageLoaded ? this.state.pickedHeroe.images.sm : "https://i.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.webp"} />
+                                }
+                            >
+                                <Meta title="" description="" />
+                                <Grid
+                                    xl={12}
+                                    container
+                                    direction="col"
+                                    justify="center"
+                                    alignItems="center">
+                                    {this.state.ActualHeroes ? this.state.ActualHeroes.map(heroSelected => (
+
                                         <Button className="mt-1" onClick={this.verifyName} value={heroSelected.name} outline color="primary">{heroSelected.name} </Button>
-                                        <br />
-                                    </Grid>
 
-                                )) : <LoadingSpinner/>}
-                            </Grid>
+                                    )) : <LoadingSpinner />}
+                                </Grid>
 
-                        </Card> : <LoadingSpinner/>
+                            </Card> : <LoadingSpinner />
 
                         }
                     </Col>
-
+    
                 </Row>
 
 
@@ -282,7 +277,7 @@ class GameScreen extends Component {
                     sucessess={this.state.sucessesses / this.state.numCards * 100} points={this.state.points + this.state.counter}
                 />
 
-            
+
 
                 <Snackbar
                     place="bc"
@@ -297,7 +292,7 @@ class GameScreen extends Component {
                 </Snackbar>
 
 
-            </div>
+            </Grid>
         )
     }
 }

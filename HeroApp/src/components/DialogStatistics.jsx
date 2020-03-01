@@ -80,6 +80,8 @@ export default function DialogStatistics(props) {
                     <div className="col-12 d-flex justify-content-start ml-5">
                         <StatisticTitle fontSize={2.8}>
                             Points : &nbsp;  <StatisticNumber>   {props.points}    </StatisticNumber>
+                            <br/>
+                            <Button  variant="contained" color="primary"onClick={()=>window.location.reload()}  >Play Again</Button>
                         </StatisticTitle>
                     </div>
                 </List>
