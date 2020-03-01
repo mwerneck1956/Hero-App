@@ -1,5 +1,5 @@
 # Hero App
-## How te Game Works
+## How the Game Works
 
 * When the game starts a card is presented, containing 3 options for the name of the hero
 * If you hit the name of the hero you win 20 points 
