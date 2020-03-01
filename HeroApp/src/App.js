@@ -8,7 +8,7 @@ import DialogStatistics from './components/DialogStatistics'
 
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -20,9 +20,12 @@ import GameView from './views/GameView'
 function App() {
   return (
     <div className="App">
-      {  <Router>
+      {  
+      
+      <Router>
       
         <Switch>
+     
           <Route exact path="/home">
             <WelcomePage />
           </Route>
