@@ -31,17 +31,17 @@ const linkColor = {
     //color: "#1A1A64"
 }
 const styleButton = {
-    padding: '3%',
+    fontSize: "2rem" ,
+    borderRadius :  "25px" ,
     fontFamily: 'avengersFont',
     marginTop: "3%",
     fontSize: '4vh',
-    color: 'white',
-    textAling: 'center',
+   
     backgroundColor: 'rgb(24, 0, 64)',
     //borderRadius: '25px'
 }
 const styleBackground = {
-    opacity : "0.2" ,  
+    opacity : "0.4" ,  
     position: "absolute", 
     width: "100%", 
     objectFit: 'cover' , 
@@ -74,18 +74,16 @@ export default class WelcomeWindow extends Component {
 
         return (
             <div
-
+                
             >
-                <Row className="no-gutters">
+                <Row className="no-gutters ">
                     <img style={styleBackground} src={AvengersBg} />
-                    <Col xl={{ size: 12 }} xs={{ size: 12 }}>
-                        <div data-aos="slide-left"
-                            data-aos-offset="300"
-                            data-aos-easing="ease-in-sine"
+                    <Col style={{marginTop :"15%"}} xl={{ size: 12 }} xs={{ size: 12 }}>
+                        <div 
                         >
 
-                            <Menu>
-                                <Animated animationIn="bounceIn" animationOut="fadeOutRight" animationInDuration={2000} animationOutDuration={2000} isVisible={true}>
+                          
+                                <Animated   animationIn="bounceIn" animationOut="fadeOutRight" animationInDuration={2000} animationOutDuration={2000} isVisible={true}>
                                     <Title>
                                         Hero <br />
                                         App
@@ -93,11 +91,11 @@ export default class WelcomeWindow extends Component {
                                 </Animated>
 
 
-                            </Menu>
+                            
 
                             <Animated animationIn="bounceIn" animationOut="fadeOutRight" animationInDuration={2000} animationOutDuration={2000} isVisible={true}>
-                                <div className="d-flex col justify-content-center">
-                                    <Link style={linkColor} to="/game"> <Button style={{ fontSize: "2rem" }} color="primary" >Start the Game</Button> </Link>
+                                <div className="d-flex col justify-content-center mt-3">
+                                    <Link style={linkColor} to="/game"> <Button  style={{fontSize : "2rem" , borderRadius :"25px"}}   color="dark" >Click To Start</Button> </Link>
                                 </div>
                             </Animated>
 

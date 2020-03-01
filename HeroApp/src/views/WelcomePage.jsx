@@ -12,8 +12,7 @@ class WelcomePage extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor : "whitesmoke" , height : '100vh' ,}}>
-            {/*<WelcomeBody /> */}
+            <div style={{backgroundColor : "whitesmoke" , height : '100vh'  }}>
              <WelcomeWindow/>
             </div>
                 )
