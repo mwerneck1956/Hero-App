@@ -1,4 +1,14 @@
 # Hero App
+## How te Game Works
+
+* When the game starts a card is presented, containing 3 options for the name of the hero
+* If you hit the name of the hero you win 20 points 
+* If you pick the wrong name , you dont win points
+* The game end when reach the limit of cards(10) or the time limit is reached
+* If you hit 60% of the names you win 
+
+
+
 Game made using[ SuperHeroApi](https://github.com/akabab/superhero-api).
 
 ## Live Application URL
