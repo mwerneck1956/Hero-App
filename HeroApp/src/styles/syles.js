@@ -7,7 +7,6 @@ export const DivCard = styled.div `
     flex-direction : column;
     align-items : center;
     justify-items : center;
-
     justify-content : center;
     align-items : center;
 
@@ -27,19 +26,16 @@ export const Item = styled.h2`
     font-size : 4vh ;
 `
 export const SubItem = styled.h4`
-    /* era 5%*/
+    
     font-size : 4vh;
     font-family : "avengersFont";
-    /*color : #0B0930;*/
+    
 `
 export const Title = styled.h1`
     text-align : center;
-    margin : 2%;
-    /* era 5%*/
-    font-size : 6.5rem ;
+
+    font-size : 6rem ;
     font-family : "avengersFont";
-    /*color : #0B0930;*/
-    /*color :  #2C2A89 ;*/
     color :#1A1808;
 `
 export const NavTitle = styled.h2`
@@ -47,7 +43,7 @@ export const NavTitle = styled.h2`
     text-align : center;
     font-size : 3rem ;
     font-family : "avengersFont";
-   /* color : #0B0930;*/
+ 
    color :  #ffffff;
 `
 export const ButtonTitle = styled.h3`
