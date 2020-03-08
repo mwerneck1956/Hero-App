@@ -9,7 +9,7 @@
 
 
 
-Game made using[ SuperHeroApi](https://github.com/akabab/superhero-api).
+Game made using[ SuperHeroApi](https://github.com/akabab/superhero-api)..
 
 ## Live Application URL
 The application is deployed in https://hero-app.netlify.com/
